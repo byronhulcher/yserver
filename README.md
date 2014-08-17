@@ -11,7 +11,7 @@ An API for http://github.com/byronhulcher/youtubr implemented in Node.js
 API endpoints
 ```
 POST /video
-	requires: {youtubeURL: string}
+	requires: {youtubeUrl: string}
 	optional: {startSeconds: int, endSeconds: int}
 	action: Creates a new video object using the supplied parameters
 	returns: new video object or 400

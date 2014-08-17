@@ -6,17 +6,52 @@ var bodyParser = require('body-parser');
 var mongoose   = require('mongoose');
 mongoose.connect('mongodb://node:node@ds063449.mongolab.com:63449/youtubr'); // connect to our database
 
+var Video      = require('./app/models/video');
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
 
 var port = process.env.PORT || 8080;    // set our port
 
 var router = express.Router();        // get an instance of the express Router
 
+// middleware to use for all requests
+router.use(function(req, res, next) {
+  // do logging
+  console.log('Request from API', req.originalUrl);
+  next();
+});
+
 router.get('/', function(req, res) {
   res.json({ up: true }); 
 });
+
+router.route('/video')
+
+  .post(function(req, res) {
+    var video = new Video();
+    video.youtubeUrl = req.body.youtubeUrl;
+    if (typeof(video.youtubeUrl) =="undefined") {
+      res.status(400).send('No youtubeUrl');
+    }
+    else {
+      video.save(function(err) {
+        if (err)
+          res.send(err);
+
+        res.json({ message: 'Video created! '+video.youtubeUrl.toString()});
+      });
+    }
+  })
+
+  .get(function(req, res) {
+    Video.find(function(err, videos) {
+      if (err)
+        res.send(err);
+
+      res.json(videos);
+    });
+  });
 
 app.use('/api', router);
 
