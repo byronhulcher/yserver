@@ -3,9 +3,12 @@
 var express    = require('express');    // call express
 var app        = express();         // define our app using express
 var bodyParser = require('body-parser');
+var mongoose   = require('mongoose');
+mongoose.connect('mongodb://node:node@ds063449.mongolab.com:63449/youtubr'); // connect to our database
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
 
 var port = process.env.PORT || 8080;    // set our port
 
