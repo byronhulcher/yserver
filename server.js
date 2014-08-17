@@ -53,6 +53,16 @@ router.route('/video')
     });
   });
 
+router.route('/video/:video_id')
+
+  .get(function(req, res) {
+    Video.findById(req.params.video_id, function(err, video) {
+      if (err)
+        res.send(err);
+      res.json(video);
+    });
+  });
+
 app.use('/api', router);
 
 app.listen(port);
