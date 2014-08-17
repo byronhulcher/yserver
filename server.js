@@ -1,3 +1,8 @@
+var generateId = function(length){
+  // via http://stackoverflow.com/a/19964557
+  return new Array(length+1).join((Math.random().toString(36)+'00000000000000000').slice(2, 18)).slice(0, length);
+}
+
 // Much code based on http://scotch.io/tutorials/javascript/build-a-restful-api-using-node-and-express-4
 
 var express    = require('express');    // call express
@@ -31,6 +36,7 @@ router.route('/video')
   .post(function(req, res) {
     var video = new Video();
     video.youtubeUrl = req.body.youtubeUrl;
+    video._id = generateId(5);
     if (typeof(video.youtubeUrl) =="undefined") {
       res.status(400).send('No youtubeUrl');
     }
@@ -39,7 +45,9 @@ router.route('/video')
         if (err)
           res.send(err);
 
-        res.json({ message: 'Video created! '+video.youtubeUrl.toString()});
+        var retVal ={}
+        retVal[video._id] = video
+        res.json(retVal);
       });
     }
   })
