@@ -5,11 +5,15 @@ An API for http://github.com/byronhulcher/youtubr implemented in Node.js
 ## Relevant Technologies
 * Node.js - http://nodejs.org/
 * Express - http://expressjs.com/
+* Mongoose - http://mongoosejs.com/
 * MongoDB - http://www.mongodb.org/
 
 ## Documentation
 API endpoints
 ```
+GET /video
+	returns: all video objects
+
 POST /video
 	requires: {youtubeUrl: string}
 	optional: {startSeconds: int, endSeconds: int}
