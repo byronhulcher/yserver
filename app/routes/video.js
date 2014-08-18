@@ -21,7 +21,7 @@ router.route('/video')
       // via http://stackoverflow.com/a/19964557
       return new Array(length+1).join((Math.random().toString(36)+'00000000000000000').slice(2, 18)).slice(0, length);
     }
-    
+
     var video = new Video();
     video.youtubeUrl = req.body.youtubeUrl;
     video._id = generateId(5);
@@ -41,7 +41,7 @@ router.route('/video')
   .get(function(req, res) {
     Video.find(function(err, videos) {
       if (err)
-        res.send(err);
+        res.status(404).send(err);
 
       res.json(videos);
     });
