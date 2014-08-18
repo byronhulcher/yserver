@@ -24,7 +24,7 @@ router.route('/video')
 
     var video = new Video();
     video.youtubeUrl = req.body.youtubeUrl;
-    video._id = generateId(5);
+    video["_id"] = generateId(5);
     if (typeof(video.youtubeUrl) =="undefined") {
       res.status(400).send('No youtubeUrl');
     }
@@ -47,10 +47,10 @@ router.route('/video')
     });
   });
 
-router.route('/video/:video_id')
+router.route('/video/:videoId')
 
   .get(function(req, res) {
-    Video.findById(req.params.video_id, function(err, video) {
+    Video.findById(req.params.videoId, function(err, video) {
       if (err)
         res.send(err);
       res.json(video);

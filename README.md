@@ -20,6 +20,6 @@ POST /video
 	action: Creates a new video object using the supplied parameters
 	returns: new video object or 400
 
-GET /video/<video_id>
+GET /video/<videoId>
 	returns: video object matching video ID or 404
 ```
