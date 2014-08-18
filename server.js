@@ -11,7 +11,6 @@ app.use(bodyParser.json());
 
 var port = process.env.PORT || 8080;    // set our port
 
-var router = express.Router();        // get an instance of the express Router
 app.use(function (req, res, next) {
 
     // Website you wish to allow to connect
@@ -31,20 +30,10 @@ app.use(function (req, res, next) {
     next();
 });
 
-// middleware to use for all requests
-router.use(function(req, res, next) {
-  // do logging
-  console.log('Request from API', req.originalUrl);
-  next();
-});
 
-router.get('/', function(req, res) {
-  res.json({ up: true }); 
-});
+var apiRoutes = require('./app/routes/video')
 
-require('./app/routes/video')(router)
-
-app.use('/api', router);
+app.use('/api', apiRoutes);
 
 app.listen(port);
 console.log('Youtubr API is active on port ' + port);
