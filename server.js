@@ -1,8 +1,3 @@
-var generateId = function(length){
-  // via http://stackoverflow.com/a/19964557
-  return new Array(length+1).join((Math.random().toString(36)+'00000000000000000').slice(2, 18)).slice(0, length);
-}
-
 // Much code based on http://scotch.io/tutorials/javascript/build-a-restful-api-using-node-and-express-4
 
 var express    = require('express');    // call express
@@ -17,6 +12,24 @@ app.use(bodyParser.json());
 var port = process.env.PORT || 8080;    // set our port
 
 var router = express.Router();        // get an instance of the express Router
+app.use(function (req, res, next) {
+
+    // Website you wish to allow to connect
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:9000');
+
+    // Request methods you wish to allow
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+    // Request headers you wish to allow
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+    // Set to true if you need the website to include cookies in the requests sent
+    // to the API (e.g. in case you use sessions)
+    res.setHeader('Access-Control-Allow-Credentials', true);
+
+    // Pass to next layer of middleware
+    next();
+});
 
 // middleware to use for all requests
 router.use(function(req, res, next) {

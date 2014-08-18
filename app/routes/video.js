@@ -1,7 +1,12 @@
+var generateId = function(length){
+  // via http://stackoverflow.com/a/19964557
+  return new Array(length+1).join((Math.random().toString(36)+'00000000000000000').slice(2, 18)).slice(0, length);
+}
+
 var Video      = require('../models/video');
 
 module.exports = function (router) {
-  
+
   router.route('/video')
 
     .post(function(req, res) {
@@ -16,9 +21,7 @@ module.exports = function (router) {
           if (err)
             res.send(err);
 
-          var retVal ={}
-          retVal[video._id] = video
-          res.json(retVal);
+          res.json(video);
         });
       }
     })
