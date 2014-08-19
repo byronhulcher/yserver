@@ -24,6 +24,11 @@ router.route('/video')
 
     var video = new Video();
     video.youtubeUrl = req.body.youtubeUrl;
+    if (typeof(req.body.startSeconds)!="undefined") video.startSeconds = req.body.startSeconds;
+    if (typeof(req.body.endSeconds)!="undefined") video.endSeconds = req.body.endSeconds;
+    if (typeof(req.body.duration)!="undefined") video.duration = req.body.duration;
+    if (typeof(req.body.title)!="undefined") video.title = req.body.title;
+    
     video["_id"] = generateId(5);
     if (typeof(video.youtubeUrl) =="undefined") {
       res.status(400).send('No youtubeUrl');
